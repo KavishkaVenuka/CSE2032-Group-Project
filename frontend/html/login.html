@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In - EduConnect</title>
+    <link rel="stylesheet" href="../css/login.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="auth-card login-card">
+        <div class="header">
+          <a href="../html/home.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+          </a>
+          <div class="logo">
+            <i class="fas fa-briefcase"></i>
+            <h1>GragGig</h1>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2>Welcome Back</h2>
+          <p>Sign in to your account</p>
+
+          <!-- User Type Selection -->
+          <div class="user-type-selection">
+            <div class="type-option active" data-type="student">
+              <i class="fas fa-user-graduate"></i>
+              <span>Login</span>
+            </div>
+            <!-- <div class="type-option" data-type="company">
+              <i class="fas fa-building"></i>
+              <span>Company</span>
+            </div> -->
+          </div>
+
+          <form id="loginForm" class="auth-form">
+            <div class="form-group">
+              <label for="loginEmail">Email Address</label>
+              <input type="email" id="username" name="email" required />
+            </div>
+
+            <div class="form-group">
+              <label for="loginPassword">Password</label>
+              <input type="password" id="password" name="password" required />
+            </div>
+
+            <div class="form-options">
+              <label class="checkbox-container">
+                <input type="checkbox" name="rememberMe" />
+                <span class="checkmark"></span>
+                Remember me
+              </label>
+              <a href="#" class="forgot-password">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">
+              <i class="fas fa-sign-in-alt"></i>
+              Sign In
+            </button>
+          </form>
+
+          <div class="form-footer">
+            <p>
+              Don't have an account?
+              <a href="../html/signup.html">Create one here</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // login.js
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // Handle user type selection (student/company)
+        const typeOptions = document.querySelectorAll(".type-option");
+        typeOptions.forEach((option) => {
+          option.addEventListener("click", function () {
+            typeOptions.forEach((opt) => opt.classList.remove("active"));
+            this.classList.add("active");
+          });
+        });
+
+        // Login form submission
+        document
+          .getElementById("loginForm")
+          .addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+
+            // Show loading state
+            submitBtn.innerHTML =
+              '<i class="fas fa-spinner fa-spin"></i> Signing In...';
+            submitBtn.disabled = true;
+
+            try {
+              const activeType = document.querySelector(".type-option.active")
+                .dataset.type;
+              const formData = {
+                username: document.getElementById("username").value,
+                password: document.getElementById("password").value,
+              };
+
+              const response = await fetch("http://localhost/WEB_FINAL_CODES/backend/login.php", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData),
+                credentials: "include"
+              });
+
+
+              if (!response.ok)
+                throw new Error(`HTTP error! status: ${response.status}`);
+
+              const result = await response.json();
+
+              if (result.success) {
+                // Redirect based on user role
+                if (result.user && result.user.role) {
+                  switch (result.user.role) {
+                    case "student":
+                      window.location.href = "student-dashboard.html";
+                      break;
+                    case "company":
+                      window.location.href = "company.html";
+                      break;
+                    case "admin":
+                      window.location.href = "cgu-dashboard.html";
+                      break;
+                    default:
+                      window.location.href = "home.html";
+                  }
+                } else {
+                  window.location.href = "home.html";
+                }
+              } else {
+                showMessage(result.message || "Invalid credentials", "error");
+              }
+            } catch (error) {
+              console.error("Login error:", error);
+              showMessage("Server error. Please try again.", "error");
+            } finally {
+              submitBtn.innerHTML = originalText;
+              submitBtn.disabled = false;
+            }
+          });
+
+        // Utility functions
+        function showMessage(message, type) {
+          // Remove existing messages
+          document.querySelectorAll(".message").forEach((el) => el.remove());
+
+          const messageEl = document.createElement("div");
+          messageEl.className = `message ${type}`;
+          messageEl.textContent = message;
+
+          const formContainer = document.querySelector(".auth-form");
+          if (formContainer) {
+            formContainer.prepend(messageEl);
+            setTimeout(() => messageEl.remove(), 5000);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
