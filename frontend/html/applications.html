@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Applications - Grag Gig</title>
+    <link rel="stylesheet" href="../css/application.css">
+    <script>if (!localStorage.getItem("isLoggedIn")) {
+    window.location.href = "login.html";
+  }</script>
+</head>
+<body>
+    <div class="container">
+       
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <div class="logo-text">
+                    <div class="company-name">Grag Gig</div>
+                    <div class="company-type">Technology</div>
+                    <div class="status">Active</div>
+                </div>
+            </div>
+            
+            <nav class="nav">
+                <div class="nav-section">
+                    <div class="nav-title">MAIN</div>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <span class="nav-icon">📊</span>
+                            <a href="../html/company.html">Dashboard</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <span class="nav-icon">📋</span>
+                            Job Postings
+                            <span class="nav-count"></span>
+                        </li> -->
+                        <li class="nav-item active">
+                            <span class="nav-icon">📄</span>
+                            Applications
+                            <span class="nav-count"></span>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+       
+        <main class="main-content">
+            <div class="applications-header">
+                <button onclick="goBack()" class="back-button">← Back to Dashboard</button>
+                <h1 id="job-title">Job Applications</h1>
+                <div id="applicant-count" class="applicant-count"></div>
+            </div>
+
+            <div class="applications-container">
+                <div id="applications-list" class="applications-list">
+                    
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/application.js"></script>
+    <script>
+     
+        window.addEventListener('DOMContentLoaded', loadApplications);
+    </script>
+</body>
+</html>
