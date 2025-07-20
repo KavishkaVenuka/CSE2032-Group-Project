@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - EduConnect</title>
+    <link rel="stylesheet" href="../CSS/login.css" />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="auth-card signup-card">
+            <div class="header">
+                <a href="../html/home.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <div class="logo">
+                    <i class="fas fa-briefcase"></i>
+                    <h1>GragGig</h1>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Create Your Account</h2>
+                <p>Join our community today</p>
+
+                <!-- User Type Selection -->
+                <div class="user-type-selection">
+                    <div class="type-option active" data-type="student">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>Student</span>
+                    </div>
+                    <div class="type-option" data-type="company">
+                        <i class="fas fa-building"></i>
+                        <span>Company</span>
+                    </div>
+                </div>
+
+                <form id="signupForm" class="auth-form">
+                    <!-- Student Form -->
+                    <div id="studentForm" class="form-content active">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="studentEmail">Email Address</label>
+                            <input type="email" id="studentEmail" name="email" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="studentPassword">Password</label>
+                                <input type="password" id="studentPassword" name="password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="studentConfirmPassword">Confirm Password</label>
+                                <input type="password" id="studentConfirmPassword" name="confirmPassword" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="department">Department</label>
+                                <select id="department" name="department" required>
+                                    <option value="">Select Department</option>
+                                    <option value="science">Science</option>
+                                    <option value="medicine">Medicine</option>
+                                    <option value="engineering">Engineering</option>
+                                    <option value="arts">Arts</option>
+                                    <option value="management">Management</option>
+                                    <option value="commerce">Commerce</option>
+                                    <option value="law">Law</option>
+                                    <option value="education">Education</option>
+                                    <option value="agriculture">Agriculture</option>
+                                    <option value="technology">Technology</option>
+                                    <option value="architecture">Architecture</option>
+                                    <option value="computer_science">Computer Science</option>
+                                    <option value="veterinary">Veterinary Medicine</option>
+                                    <option value="dental">Dental Sciences</option>
+                                    <option value="nursing">Nursing</option>
+                                    <option value="pharmacy">Pharmacy</option>
+                                    <option value="allied_health">Allied Health Sciences</option>
+                                    <option value="fisheries_marine">Fisheries and Marine Sciences</option>
+                                    <option value="environmental_science">Environmental Science</option>
+                                    <option value="social_sciences">Social Sciences</option>
+                                    <option value="humanities">Humanities</option>
+                                    <option value="indigenous_medicine">Indigenous Medicine</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="degree">Degree</label>
+                                <select id="degree" name="degree" required>
+                                    <option value="bsc">BSc (Bachelor of Science)</option>
+                                    <option value="bsc_hons">BSc (Hons)</option>
+                                    <option value="bsc_engineering">BSc in Engineering</option>
+                                    <option value="beng">BEng (Bachelor of Engineering)</option>
+                                    <option value="mbbs">MBBS (Bachelor of Medicine, Bachelor of Surgery)</option>
+                                    <option value="bds">BDS (Bachelor of Dental Surgery)</option>
+                                    <option value="bvsc">BVSc (Bachelor of Veterinary Science)</option>
+                                    <option value="bams">BAMS (Bachelor of Ayurveda Medicine and Surgery)</option>
+                                    <option value="bpharm">BPharm (Bachelor of Pharmacy)</option>
+                                    <option value="bsc_nursing">BSc in Nursing</option>
+                                    <option value="bmlt">BSc in Medical Laboratory Technology (BMLT)</option>
+                                    <option value="bpt">BSc in Physiotherapy (BPT)</option>
+                                    <option value="bbm">BBM (Bachelor of Business Management)</option>
+                                    <option value="bcom">BCom (Bachelor of Commerce)</option>
+                                    <option value="bba">BBA (Bachelor of Business Administration)</option>
+                                    <option value="bpa">BPA (Bachelor of Performing Arts)</option>
+                                    <option value="ba">BA (Bachelor of Arts)</option>
+                                    <option value="bl">LLB (Bachelor of Laws)</option>
+                                    <option value="barch">BArch (Bachelor of Architecture)</option>
+                                    <option value="bit">BIT (Bachelor of Information Technology)</option>
+                                    <option value="bict">BICT (Bachelor of Information and Communication Technology)
+                                    </option>
+                                    <option value="btech">BTech (Bachelor of Technology)</option>
+                                    <option value="bed">BEd (Bachelor of Education)</option>
+                                    <option value="bagrisc">BSc in Agricultural Sciences</option>
+                                    <option value="bfin">BSc in Finance</option>
+                                    <option value="bacc">BSc in Accounting</option>
+                                    <option value="bhrm">BSc in Human Resource Management</option>
+                                    <option value="bent">BSc in Entrepreneurship</option>
+                                    <option value="bqs">BSc in Quantity Surveying</option>
+                                    <option value="btown">BSc in Town and Country Planning</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="year">Year</label>
+                                <select id="year" name="year" required>
+                                    <option value="">Select Year</option>
+                                    <option value="1">1st Year</option>
+                                    <option value="2">2nd Year</option>
+                                    <option value="3">3rd Year</option>
+                                    <option value="4">4th Year</option>
+                                    <option value="graduate">Graduate</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="registrationNo">Registration Number</label>
+                                <input type="text" id="registrationNo" name="registrationNo" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="linkedinUrl">LinkedIn Profile URL</label>
+                            <input type="url" id="linkedinUrl" name="linkedinUrl"
+                                placeholder="https://linkedin.com/in/yourprofile">
+                        </div>
+                    </div>
+
+                    <!-- Company Form -->
+                    <div id="companyForm" class="form-content">
+                        <div class="form-group">
+                            <label for="companyName">Company Name</label>
+                            <input type="text" id="companyName" name="companyName" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="companyRegNo">Company Registration Number</label>
+                                <input type="text" id="companyRegNo" name="companyRegNo" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="businessType">Business Type</label>
+                                <select id="businessType" name="businessType" required>
+                                    <option value="">Select Business Type</option>
+                                    <option value="education">Education</option>
+                                    <option value="technology">Technology</option>
+                                    <option value="healthcare">Healthcare</option>
+                                    <option value="retail">Retail</option>
+                                    <option value="finance">Finance</option>
+                                    <option value="manufacturing">Manufacturing</option>
+                                    <option value="hospitality_tourism">Hospitality and Tourism</option>
+                                    <option value="agriculture">Agriculture</option>
+                                    <option value="construction_real_estate">Construction and Real Estate</option>
+                                    <option value="transportation_logistics">Transportation and Logistics</option>
+                                    <option value="media_entertainment">Media and Entertainment</option>
+                                    <option value="professional_services">Professional Services</option>
+                                    <option value="energy_utilities">Energy and Utilities</option>
+                                    <option value="telecommunications">Telecommunications</option>
+                                    <option value="fashion_beauty">Fashion and Beauty</option>
+
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="companyEmail">Email Address</label>
+                            <input type="email" id="companyEmail" name="email" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="companyPassword">Password</label>
+                                <input type="password" id="companyPassword" name="password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="companyConfirmPassword">Confirm Password</label>
+                                <input type="password" id="companyConfirmPassword" name="confirmPassword" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactNo">Contact Number</label>
+                                <input type="tel" id="contactNo" name="contactNo" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="employeeCount">Number of Employees</label>
+                                <select id="employeeCount" name="employeeCount" required>
+                                    <option value="">Select Range</option>
+                                    <option value="1-10">1-10</option>
+                                    <option value="11-50">11-50</option>
+                                    <option value="51-200">51-200</option>
+                                    <option value="201-500">201-500</option>
+                                    <option value="501-1000">501-1000</option>
+                                    <option value="1000+">1000+</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Company Address</label>
+                            <textarea id="address" name="address" rows="3" required></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <i class="fas fa-user-plus"></i>
+                        Create Account
+                    </button>
+                </form>
+
+                <div class="form-footer">
+                    <p>Already have an account? <a href="login.html">Sign in here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../js/signup.js" defer></script>
+
+</body>
+
+</html>
