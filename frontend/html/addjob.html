@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post New Job</title>
+    <link rel="stylesheet" href="../css/jobstyles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <button class="back-btn" >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Back to Dashboard
+                </button>
+                <div class="user-info">
+                    <div class="avatar">CG</div>
+                    <span class="username">Grag Gig</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="btn-secondary" id="saveDraftBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                        <polyline points="17,21 17,13 7,13 7,21"/>
+                        <polyline points="7,3 7,8 15,8"/>
+                    </svg>
+                    Save as Draft
+                </button>
+                <button class="btn-primary" id="publishJobBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+                        <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+                        <path d="M2 2l7.586 7.586"/>
+                        <circle cx="11" cy="11" r="2"/>
+                    </svg>
+                    Publish Job
+                </button>
+            </div>
+        </header>
+
+      
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Post New Job</h1>
+                <p class="subtitle">Fill in the details below to create your job posting</p>
+            </div>
+
+            <form id="jobForm" class="job-form">
+              
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                        </div>
+                        <h2>Basic Information</h2>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="jobTitle">Job Title *</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="jobTitle" name="jobTitle" placeholder="e.g. Senior Software Engineer" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="jobType">Job Type *</label>
+                            <div class="select-wrapper">
+                                <select id="jobType" name="jobType" required>
+                                    <option value="">Select job type</option>
+                                    <option value="Full-time">Full-time</option>
+                                    <option value="Part-time">Part-time</option>
+                                    <option value="Contract">Contract</option>
+                                    <option value="Freelance">Freelance</option>
+                                    <option value="Internship">Internship</option>
+                                </select>
+                                <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6,9 12,15 18,9"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="jobCategory">Job Category *</label>
+                            <div class="select-wrapper">
+                                <select id="jobCategory" name="jobCategory" required>
+                                    <option value="">Select job category</option>
+                                    <option value="Education">Education</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="Healcare">Healcare</option>
+                                    <option value="Retail">Retail</option>
+                                    <option value="Finance">Finance</option>
+                                    <option value="Hospitality and tourism">Hospitality and tourism</option>
+                                    <option value="Agriculture">Agriculture</option>
+                                    <option value="Construction and real state">Construction and real state</option>
+                                    <option value="Transportation and logistics">Transportation and logistics</option>
+                                    <option value="Media entertainment">Media entertainment</option>
+                                    <option value="Professional services">Professional services</option>
+                                    <option value="Energy utilities">Energy utilities</option>
+                                    <option value="Telecommunication">Telecommunication</option>
+                                    <option value="Fashion and beauty">Fashion and beauty</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <svg class="select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6,9 12,15 18,9"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="jobLocation">Job Location *</label>
+                            <div class="input-wrapper">
+                                <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                <input type="text" id="jobLocation" name="jobLocation" placeholder="e.g. New York, NY or Remote" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="jobTag">Job Tags</label>
+                            <div class="input-wrapper">
+                                <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+                                    <line x1="7" y1="7" x2="7.01" y2="7"/>
+                                </svg>
+                                <input type="text" id="jobTag" name="jobTag" placeholder="e.g. Engineering, Marketing, Remote">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="closingDate">Application Closing Date *</label>
+                            <div class="input-wrapper">
+                                <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="16" y1="2" x2="16" y2="6"/>
+                                    <line x1="8" y1="2" x2="8" y2="6"/>
+                                    <line x1="3" y1="10" x2="21" y2="10"/>
+                                </svg>
+                                <input type="date" id="closingDate" name="closingDate" required>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="jobDescription">Job Description *</label>
+                        <div class="textarea-wrapper">
+                            <textarea id="jobDescription" name="jobDescription" rows="6" placeholder="Describe the role, responsibilities, and what makes this position exciting..." required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Requirements *</label>
+                        <div class="dynamic-list-container">
+                            <div class="add-item-section">
+                                <div class="input-wrapper">
+                                    <input type="text" id="requirementInput" placeholder="Add a requirement (e.g. Bachelor's degree in Computer Science)">
+                                </div>
+                                <button type="button" class="add-btn" id="addRequirementBtn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="12" y1="5" x2="12" y2="19"/>
+                                        <line x1="5" y1="12" x2="19" y2="12"/>
+                                    </svg>
+                                    Add
+                                </button>
+                            </div>
+                            <div id="requirementsList" class="items-list"></div>
+                        </div>
+                        <textarea id="requirements" name="requirements" style="display: none;"></textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Responsibilities *</label>
+                        <div class="dynamic-list-container">
+                            <div class="add-item-section">
+                                <div class="input-wrapper">
+                                    <input type="text" id="responsibilityInput" placeholder="Add a responsibility (e.g. Lead development of new features)">
+                                </div>
+                                <button type="button" class="add-btn" id="addResponsibilityBtn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="12" y1="5" x2="12" y2="19"/>
+                                        <line x1="5" y1="12" x2="19" y2="12"/>
+                                    </svg>
+                                    Add
+                                </button>
+                            </div>
+                            <div id="responsibilitiesList" class="items-list"></div>
+                        </div>
+                        <textarea id="responsibilities" name="responsibilities" style="display: none;"></textarea>
+                    </div>
+                </div>
+
+              
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="saveDraftBtn2">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                            <polyline points="17,21 17,13 7,13 7,21"/>
+                            <polyline points="7,3 7,8 15,8"/>
+                        </svg>
+                        Save as Draft
+                    </button>
+                    <button type="button" class="btn-primary" id="publishJobBtn2">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+                            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+                            <path d="M2 2l7.586 7.586"/>
+                            <circle cx="11" cy="11" r="2"/>
+                        </svg>
+                        Publish Job
+                    </button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <script src="../js/jobscript.js"></script>
+</body>
+</html>
