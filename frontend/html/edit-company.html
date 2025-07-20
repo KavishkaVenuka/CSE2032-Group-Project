@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Company Details</title>
+    <link
+      rel="stylesheet"
+      href="/WEB_FINAL_CODES/frontend/css/edit-styles.css"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <script>
+      if (!localStorage.getItem("isLoggedIn")) {
+        window.location.href = "login.html";
+      }
+    </script>
+  </head>
+  <body style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+    <div class="page-container">
+      <header class="page-header">
+        <div class="header-left">
+          <button class="back-btn" onclick="goBackToDashboard()">
+            <i class="fas fa-arrow-left"></i>
+            Back to Dashboard
+          </button>
+        </div>
+
+        <div class="header-center">
+          <div class="user-info">
+            <div class="user-avatar">
+              <img
+                id="companyLogoPreview"
+                src="/placeholder.svg"
+                alt="Company Logo"
+              />
+            </div>
+            <span class="user-name" id="companyNameHeader">Company Name</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <button class="draft-btn" onclick="saveAsDraft()">
+            <i class="fas fa-file-alt"></i>
+            Save as Draft
+          </button>
+          <button class="publish-btn" onclick="publishChanges()">
+            <i class="fas fa-rocket"></i>
+            Update Company
+          </button>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <div class="content-container">
+          <div class="page-title-section">
+            <h1 class="page-title">Edit Company Details</h1>
+            <p class="page-subtitle">Update your company information below</p>
+          </div>
+
+          <div class="section-divider"></div>
+
+          <div class="form-section">
+            <div class="section-header">
+              <div class="section-icon">
+                <i class="fas fa-building"></i>
+              </div>
+              <h2 class="section-title">Company Information</h2>
+            </div>
+
+            <form id="companyEditForm" class="company-form">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="com_name"
+                    >COMPANY NAME <span class="required">*</span></label
+                  >
+                  <input type="text" id="com_name" name="com_name" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="reg_no"
+                    >REGISTRATION NUMBER <span class="required">*</span></label
+                  >
+                  <input type="text" id="reg_no" name="reg_no" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="bussiness_type"
+                    >BUSINESS TYPE <span class="required">*</span></label
+                  >
+                  <select id="bussiness_type" name="bussiness_type" required>
+                    <option value="">Select Type</option>
+                    <option value="sole_proprietorship">
+                      Sole Proprietorship
+                    </option>
+                    <option value="partnership">Partnership</option>
+                    <option value="llc">LLC</option>
+                    <option value="corporation">Corporation</option>
+                    <option value="nonprofit">Non-profit</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="no_of_employees"
+                    >NUMBER OF EMPLOYEES <span class="required">*</span></label
+                  >
+                  <input
+                    type="number"
+                    id="no_of_employees"
+                    name="no_of_employees"
+                    min="1"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="email"
+                    >COMPANY EMAIL <span class="required">*</span></label
+                  >
+                  <input type="email" id="email" name="email" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="contact_no"
+                    >CONTACT NUMBER <span class="required">*</span></label
+                  >
+                  <input
+                    type="tel"
+                    id="contact_no"
+                    name="contact_no"
+                    pattern="[0-9]{10,12}"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="url"
+                    >WEBSITE URL <span class="required">*</span></label
+                  >
+                  <input
+                    type="url"
+                    id="url"
+                    name="url"
+                    placeholder="https://"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="address"
+                    >ADDRESS <span class="required">*</span></label
+                  >
+                  <input type="text" id="address" name="address" required />
+                </div>
+
+                <div class="form-group full-width">
+                  <label for="image">COMPANY LOGO</label>
+                  <div class="file-upload-container">
+                    <input
+                      type="file"
+                      id="image"
+                      name="image"
+                      accept="image/*"
+                      class="file-upload-input"
+                    />
+                    <label for="image" class="file-upload-label">
+                      <i class="fas fa-cloud-upload-alt"></i>
+                      <span>Choose file or drag here</span>
+                    </label>
+                    <div class="file-upload-preview" id="logoPreview"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="bio"
+                  >COMPANY BIO <span class="required">*</span></label
+                >
+                <textarea id="bio" name="bio" rows="6" required></textarea>
+              </div>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="/WEB_FINAL_CODES/frontend/js/edit-company.js"></script>
+  </body>
+</html>

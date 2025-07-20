@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Platform - Find Your Next Opportunity</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/jobs.css" />
+    <script>
+      if (!localStorage.getItem("isLoggedIn")) {
+        window.location.href = "login.html";
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <div class="header-animation">
+            <h1>Find Your Next Opportunity</h1>
+            <p>
+              Discover internships, part-time, and full-time positions from top
+              companies
+            </p>
+            <div class="header-stats">
+              <div class="stat-item">
+                <span class="stat-number">1000+</span>
+                <span class="stat-label">Active Jobs</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">500+</span>
+                <span class="stat-label">Companies</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">50k+</span>
+                <span class="stat-label">Job Seekers</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="header-wave">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path
+            d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
+            opacity=".25"
+            class="shape-fill"
+          ></path>
+          <path
+            d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
+            opacity=".5"
+            class="shape-fill"
+          ></path>
+          <path
+            d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
+            class="shape-fill"
+          ></path>
+        </svg>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="navigation-tabs">
+      <div class="container">
+        <div class="tab-container">
+          <button class="nav-tab active" data-tab="jobs">
+            <i class="fas fa-briefcase"></i>
+            <span>Job Listings</span>
+          </button>
+          <button class="nav-tab" data-tab="categories">
+            <i class="fas fa-th-large"></i>
+            <span>Categories</span>
+          </button>
+          <button class="nav-tab" data-tab="companies">
+            <i class="fas fa-building"></i>
+            <span>Companies</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-container">
+      <div class="container">
+        <!-- Jobs Tab Content -->
+        <div id="jobs-tab" class="tab-content active">
+          <div class="content-wrapper">
+            <!-- Sidebar Filters -->
+            <aside class="filters-sidebar">
+              <div class="filter-card">
+                <div class="filter-header">
+                  <i class="fas fa-sliders-h"></i>
+                  <h3>Smart Filters</h3>
+                </div>
+
+                <!-- Search Section -->
+                <div class="search-section">
+                  <label class="filter-label">Search Jobs</label>
+                  <div class="search-wrapper">
+                    <input
+                      type="text"
+                      id="search-input"
+                      class="search-field"
+                      placeholder="Job title, keywords, company..."
+                    />
+                    <button
+                      id="search-button"
+                      class="search-btn"
+                      aria-label="Search"
+                    >
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Job Type Filter -->
+                <div class="filter-section">
+                  <div class="filter-title">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Job Type</span>
+                  </div>
+                  <div class="filter-options">
+                    <label class="filter-option">
+                      <input
+                        type="checkbox"
+                        class="filter-checkbox"
+                        data-filter="type"
+                        value="internship"
+                      />
+                      <span class="checkbox-custom"></span>
+                      <span class="option-text">Internship</span>
+                      <span class="option-count">(45)</span>
+                    </label>
+                    <label class="filter-option">
+                      <input
+                        type="checkbox"
+                        class="filter-checkbox"
+                        data-filter="type"
+                        value="part-time"
+                      />
+                      <span class="checkbox-custom"></span>
+                      <span class="option-text">Part-time</span>
+                      <span class="option-count">(32)</span>
+                    </label>
+                    <label class="filter-option">
+                      <input
+                        type="checkbox"
+                        class="filter-checkbox"
+                        data-filter="type"
+                        value="full-time"
+                      />
+                      <span class="checkbox-custom"></span>
+                      <span class="option-text">Full-time</span>
+                      <span class="option-count">(128)</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Location Filter -->
+                <div class="filter-section">
+                  <div class="filter-title">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Location</span>
+                  </div>
+                  <div class="filter-options">
+                    <label class="filter-option">
+                      <input
+                        type="checkbox"
+                        class="filter-checkbox"
+                        data-filter="location"
+                        value="remote"
+                      />
+                      <span class="checkbox-custom"></span>
+                      <span class="option-text">Remote</span>
+                      <span class="option-count">(67)</span>
+                    </label>
+                    <label class="filter-option">
+                      <input
+                        type="checkbox"
+                        class="filter-checkbox"
+                        data-filter="location"
+                        value="new-york"
+                      />
+                      <span class="checkbox-custom"></span>
+                      <span class="option-text">Colombo</span>
+                      <span class="option-count">(89)</span>
+                    </label>
+                    <label class="filter-option">
+                      <input
+                        type="checkbox"
+                        class="filter-checkbox"
+                        data-filter="location"
+                        value="san-francisco"
+                      />
+                      <span class="checkbox-custom"></span>
+                      <span class="option-text">Online</span>
+                      <span class="option-count">(54)</span>
+                    </label>
+                  </div>
+                </div>
+                <button id="clear-filters" class="clear-btn">
+                  <i class="fas fa-times"></i>
+                  <span>Clear All Filters</span>
+                </button>
+              </div>
+            </aside>
+
+            <!-- Job Listings Section -->
+            <section class="jobs-section">
+              <div class="section-header">
+                <div class="header-left">
+                  <h2 class="section-title">Job Listings</h2>
+                  <span id="jobs-count" class="results-count"
+                    >8 jobs found</span
+                  >
+                </div>
+                <div class="header-right">
+                  <select id="sort-dropdown" class="sort-select">
+                    <option value="newest">Most Recent</option>
+                    <option value="company">Company A-Z</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="jobs-container" id="jobsContainer"></div>
+
+              <button id="load-more" class="load-more-button">
+                <span>Load More Jobs</span>
+                <i class="fas fa-chevron-down"></i>
+              </button>
+            </section>
+          </div>
+        </div>
+
+        <!-- Categories Tab Content -->
+        <div id="categories-tab" class="tab-content">
+          <div class="categories-header">
+            <h2 class="categories-title">Browse by Categories</h2>
+            <p class="categories-subtitle">
+              Explore job opportunities across different industries and
+              specializations
+            </p>
+          </div>
+          <div class="categories-container" id="categoriesContainer"></div>
+        </div>
+
+        <!-- Companies Tab Content -->
+        <div id="companies-tab" class="tab-content">
+          <div class="companies-header">
+            <h2 class="companies-title">Registered Companies</h2>
+            <p class="companies-subtitle">
+              Discover companies actively hiring on our platform
+            </p>
+          </div>
+          <div id="companyList" class="companies-container"></div>
+        </div>
+      </div>
+    </main>
+
+    <script src="../js/jobs.js" defer></script>
+  </body>
+</html>

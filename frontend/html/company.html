@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Dashboard</title>
+    <link rel="stylesheet" href="/WEB_FINAL_CODES/frontend/css/styles.css" />
+    <script>
+      if (!localStorage.getItem("isLoggedIn")) {
+        window.location.href = "login.html";
+      }
+    </script>
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <aside class="sidebar">
+        <div class="company-info">
+          <div class="company-logo">
+            <img id="companyLogo" src="/placeholder.svg" alt="Company Logo" />
+          </div>
+          <div class="company-details">
+            <h3 id="companyName">Loading...</h3>
+            <p id="companyCategory">Loading...</p>
+            <span class="status" id="status"></span>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <div class="nav-section">
+            <p class="nav-label">MAIN</p>
+            <ul>
+              <li class="nav-item active">
+                <a href="#" class="nav-link">
+                  <span class="nav-icon">📊</span>
+                  Dashboard
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <span class="nav-icon">📝</span>
+                  Job Postings
+                  <span class="nav-count" id="jobCount">0</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <span class="nav-icon">📋</span>
+                  Applications
+                  <span class="nav-count">0</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="nav-section">
+            <p class="nav-label">ANALYTICS</p>
+            <ul>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <span class="nav-icon">📈</span>
+                  Analytics
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <span class="nav-icon">📊</span>
+                  Reports
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="nav-section">
+            <p class="nav-label">SETTINGS</p>
+            <ul>
+              <li class="nav-item">
+                <a href="#" class="nav-link" id="profileBtn">
+                  <span class="nav-icon">🏢</span>
+                  Company Profile
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <span class="nav-icon">⚙️</span>
+                  Settings
+                </a>
+              </li>
+            </ul>
+            <ul class="side-menu">
+              <li class="nav-item" id="logout">
+                <a href="#" class="nav-link">
+                  <span class="nav-icon">🚪</span>
+                  log out
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+        <header class="main-header">
+          <div class="header-content">
+            <h1>Dashboard Overview</h1>
+            <p>Manage your job postings and track performance</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn-secondary">📊 Export Data</button>
+            <button class="btn-primary">Post New Job</button>
+            <div class="user-menu">
+              <span>👤</span>
+            </div>
+          </div>
+        </header>
+
+        <section class="quick-overview">
+          <div class="section-header">
+            <h2>Quick Overview</h2>
+            <select class="time-filter">
+              <option>Last 30 days</option>
+              <option>Last 7 days</option>
+              <option>Last 90 days</option>
+            </select>
+          </div>
+
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div class="metric-icon">📝</div>
+              <div class="metric-value" id="activeJobs">0</div>
+              <div class="metric-label">Active Jobs</div>
+              <div class="metric-description">
+                Currently accepting applications
+              </div>
+              <div class="metric-change positive">+12%</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-icon">📋</div>
+              <div class="metric-value" id="totalApplications">0</div>
+              <div class="metric-label">Total Applications</div>
+              <div class="metric-description">Across all job postings</div>
+              <div class="metric-change positive">+8%</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-icon">👁️</div>
+              <div class="metric-value" id="profileViews">0</div>
+              <div class="metric-label">Profile Views</div>
+              <div class="metric-description">Company page visits</div>
+              <div class="metric-change positive">+15%</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-icon">⏱️</div>
+              <div class="metric-value" id="avgResponseTime">2.4h</div>
+              <div class="metric-label">Avg Response Time</div>
+              <div class="metric-description">
+                Time to respond to applications
+              </div>
+              <div class="metric-change negative">-5%</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="job-listings">
+          <div class="section-header">
+            <h2>Job Postings</h2>
+            <a href="#" class="view-all">View All</a>
+          </div>
+          <div class="jobs-container" id="jobsContainer"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/WEB_FINAL_CODES/frontend/js/script.js"></script>
+  </body>
+</html>
