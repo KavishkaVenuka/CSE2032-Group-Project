@@ -30,13 +30,9 @@
           <!-- User Type Selection -->
           <div class="user-type-selection">
             <div class="type-option active" data-type="student">
-              <i class="fas fa-user-graduate"></i>
+              <i class="fas fa-user"></i>
               <span>Login</span>
             </div>
-            <!-- <div class="type-option" data-type="company">
-              <i class="fas fa-building"></i>
-              <span>Company</span>
-            </div> -->
           </div>
 
           <form id="loginForm" class="auth-form">
@@ -119,15 +115,13 @@
                 body: JSON.stringify(formData),
                 credentials: "include"
               });
-
-
               if (!response.ok)
                 throw new Error(`HTTP error! status: ${response.status}`);
-
               const result = await response.json();
 
               if (result.success) {
                 // Redirect based on user role
+                localStorage.setItem("isLoggedIn", "true");
                 if (result.user && result.user.role) {
                   switch (result.user.role) {
                     case "student":

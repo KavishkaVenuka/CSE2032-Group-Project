@@ -32,15 +32,15 @@
     --success-50: #ecfdf3;
     --success-500: #12b76a;
     --success-600: #039855;
-    
+
     --warning-50: #fffaeb;
     --warning-500: #f79009;
     --warning-600: #dc6803;
-    
+
     --error-50: #fef3f2;
     --error-500: #f04438;
     --error-600: #d92d20;
-    
+
     --blue-50: #eff8ff;
     --blue-500: #2e90fa;
     --blue-600: #1570ef;
@@ -498,7 +498,7 @@ body {
     margin-bottom: var(--space-1);
     color: var(--gray-900);
     line-height: 1;
-     font-family: 'Poppins';
+    font-family: 'Poppins';
 }
 
 .metric-label {
@@ -525,7 +525,7 @@ body {
     border-radius: var(--radius-md);
     font-size: var(--text-xs);
     font-weight: 600;
-     font-family: 'Poppins';
+    font-family: 'Poppins';
 }
 
 .metric-change.positive {
@@ -628,8 +628,13 @@ body {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Job Cards - Clean and modern */
@@ -841,60 +846,60 @@ body {
         transition: left var(--transition-normal);
         z-index: 1000;
     }
-    
+
     .sidebar.mobile-open {
         left: 0;
     }
-    
+
     .main-content {
         margin-left: 0;
         padding: var(--space-4);
     }
-    
+
     .main-header {
         flex-direction: column;
         gap: var(--space-4);
         align-items: stretch;
     }
-    
+
     .header-actions {
         justify-content: flex-end;
         flex-wrap: wrap;
     }
-    
+
     .metrics-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .job-stats {
         flex-wrap: wrap;
         gap: var(--space-3);
     }
-    
+
     .job-footer {
         flex-direction: column;
         gap: var(--space-3);
         align-items: stretch;
     }
-    
+
     .job-actions {
         justify-content: center;
     }
-    
+
     .section-actions {
         flex-direction: column;
         gap: var(--space-3);
         align-items: stretch;
     }
-    
+
     .search-input {
         width: 100%;
     }
-    
+
     .page-title {
         font-size: var(--text-2xl);
     }
-    
+
     .company-info {
         flex-direction: column;
         text-align: center;
@@ -906,15 +911,15 @@ body {
     .main-content {
         padding: var(--space-3);
     }
-    
+
     .job-card {
         padding: var(--space-4);
     }
-    
+
     .metrics-grid {
         gap: var(--space-3);
     }
-    
+
     .metric-card {
         padding: var(--space-4);
     }
@@ -946,11 +951,15 @@ body {
 
 
 .sidebar-nav ul {
-    list-style-type: none; /* This removes the bullets */
-    padding-left: 0; /* This removes the default padding that creates indentation */
+    list-style-type: none;
+    /* This removes the bullets */
+    padding-left: 0;
+    /* This removes the default padding that creates indentation */
 }
 
 .nav-list {
-    list-style: none; /* Ensures no bullets are shown */
-    padding-left: 0; /* Removes the default left padding */
+    list-style: none;
+    /* Ensures no bullets are shown */
+    padding-left: 0;
+    /* Removes the default left padding */
 }

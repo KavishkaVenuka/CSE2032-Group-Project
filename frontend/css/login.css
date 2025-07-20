@@ -41,6 +41,7 @@ body {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -314,12 +315,12 @@ body {
   transition: all 0.3s ease;
 }
 
-.checkbox-container input[type="checkbox"]:checked + .checkmark {
+.checkbox-container input[type="checkbox"]:checked+.checkmark {
   background: linear-gradient(135deg, #667eea, #764ba2);
   border-color: #764ba2;
 }
 
-.checkbox-container input[type="checkbox"]:checked + .checkmark::after {
+.checkbox-container input[type="checkbox"]:checked+.checkmark::after {
   content: "✓";
   position: absolute;
   top: 50%;

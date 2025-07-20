@@ -27,8 +27,7 @@
 }
 
 body {
-  font-family:'Poppins';
-  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+  font-family: 'Poppins';
   color: var(--gray-900);
   line-height: 1.6;
   min-height: 100vh;
@@ -158,6 +157,7 @@ body {
 /* Main Content */
 .main-content {
   padding: 3rem;
+
   background: white;
 }
 

@@ -340,12 +340,12 @@ body {
     flex-shrink: 0;
 }
 
-.filter-checkbox:checked + .checkbox-custom {
+.filter-checkbox:checked+.checkbox-custom {
     background: #6a38c2;
     border-color: #6a38c2;
 }
 
-.filter-checkbox:checked + .checkbox-custom::after {
+.filter-checkbox:checked+.checkbox-custom::after {
     content: '✓';
     position: absolute;
     top: 50%;
@@ -651,6 +651,7 @@ body {
         opacity: 0;
         transform: translateY(-10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1088,8 +1089,8 @@ body {
 }
 
 @keyframes spin {
-    to { 
-        transform: rotate(360deg); 
+    to {
+        transform: rotate(360deg);
     }
 }
 
@@ -1125,20 +1126,20 @@ body {
         grid-template-columns: 280px 1fr;
         gap: 2rem;
     }
-    
+
     .stats-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 1rem;
     }
-    
+
     .stat-card {
         padding: 1.5rem 1rem;
     }
-    
+
     .categories-container {
         grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .companies-container {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -1148,64 +1149,64 @@ body {
     .hero-title {
         font-size: 2.5rem;
     }
-    
+
     .hero-subtitle {
         font-size: 1.125rem;
     }
-    
+
     .stats-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
         max-width: 300px;
     }
-    
+
     .content-wrapper {
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
-    
+
     .filters-sidebar {
         position: static;
     }
-    
+
     .tab-container {
         flex-direction: column;
     }
-    
+
     .nav-tab {
         justify-content: center;
     }
-    
+
     .section-header {
         flex-direction: column;
         gap: 1rem;
         align-items: flex-start;
     }
-    
+
     .job-header {
         flex-direction: column;
         gap: 1rem;
     }
-    
+
     .job-footer {
         flex-direction: column;
         gap: 1rem;
         align-items: flex-start;
     }
-    
+
     .details-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
-    
+
     .categories-container {
         grid-template-columns: 1fr;
     }
-    
+
     .companies-container {
         grid-template-columns: 1fr;
     }
-    
+
     .company-actions {
         flex-direction: column;
     }
@@ -1215,22 +1216,22 @@ body {
     .container {
         padding: 0 15px;
     }
-    
+
     .hero-title {
         font-size: 2rem;
     }
-    
+
     .filter-card,
     .jobs-section,
     .company-card,
     .category-card {
         padding: 1.5rem;
     }
-    
+
     .job-card {
         padding: 1.5rem;
     }
-    
+
     .job-meta {
         flex-direction: column;
         gap: 0.5rem;
