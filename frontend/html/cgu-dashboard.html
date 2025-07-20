@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<title>CGU Page - Grag Gig</title>
+	<link rel="stylesheet" href="../css/student.css">
+</head>
+<body>
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<div class="sidebar-content">
+			<div id="navlogo"
+				style="max-width: 1200px; margin: 0 auto; padding: 1.5rem; height: 70px;  align-items: center; gap: 0.5rem; font-size: 1.5rem; font-weight: 800; color:#9333ea; text-decoration: none; margin-left:50px;">
+				<i class="fas fa-briefcase"></i>
+				Grag<span style="color: #f59e0b;">Gig</span></div>
+				<ul class="side-menu top" style="flex: 0 0 auto; padding-bottom: 0; ">
+					<li class="active" style="margin-top: -80px; list-style: none; height: 400px; ">
+						<a href="cgu-dashboard.html" style="height: 40px; font-size: 20px;">
+							<i class='bx bxs-dashboard'></i>
+							<span class="text">Dashboard</span>
+						</a>
+					</li>
+				</ul>
+
+				<ul class="side-menu" style="flex: 0 0 auto; margin-bottom: 0; padding-bottom: 0;">
+					<li style="margin-bottom: 8px; list-style: none;">
+						<a href="#" style="height: 40px; font-size: 20px;">
+							<i class='bx bxs-cog'></i>
+							<span class="text">Settings</span>
+						</a>
+					</li>
+					<li style="margin-bottom: 0px; list-style: none;">
+						<a href="#" class="logout" style="height: 40px; font-size: 20px;">
+							<i class='bx bxs-log-out-circle'></i>
+							<span class="text">Logout</span>
+						</a>
+					</li>
+				</ul>
+
+
+				<!-- Profile Section -->
+				<div class="profile-admin-section"  style="height: 70px; margin-top: -100px;"  >
+					<div class="profile-content" >
+						<img src="" alt="Profile" class="profile-img">
+						<div class="profile-info">
+							<h4 id="admin-name" >Administrator</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+	</section>
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu'></i>
+			<a href="#" class="nav-link">Categories</a>
+			<div class="nav-right-group">
+				<form class="search-box">
+					<input type="text" placeholder=" " />
+					<button type="reset"></button>
+				</form>
+			</div>
+			<div class="absolute-header-controls">
+				<input type="checkbox" id="switch-mode" hidden>
+				<label for="switch-mode" class="switch-mode"></label>
+				<a href="#" class="notification">
+					<i class='bx bxs-bell'></i>
+					<span class="num"></span>
+				</a>
+			</div>
+		</nav>
+
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Dashboard</h1>
+					<ul class="breadcrumb">
+						<li><a href="#">Dashboard</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Page Content -->
+			<div class="page-content">
+				<div style="display:flex;align-items:center;gap:16px;margin-bottom:18px;">
+					<label for="company-category-filter" style="font-weight:500;color:var(--primary);">Filter by Category:</label>
+					<select id="company-category-filter" class="form-input" style="width:180px;">
+						<option value="All">All</option>
+					</select>
+				</div>
+				<div class="company-cards-list" id="company-cards-list">
+				<!-- Company cards will be rendered here by JS -->
+				</div>
+            </div>
+        </main>
+    </section>
+	<script>
+	let allCompanies = [];
+	function renderCompanyCards(companies) {
+		const list = document.getElementById('company-cards-list');
+		list.innerHTML = '';
+		companies.forEach(company => {
+			const card = renderCompanyCard(company);
+			card.querySelector('.btn-confirm').addEventListener('click', function() {
+				this.disabled = true;
+				fetch('http://localhost/WEB_FINAL_CODES/backend/get_pending_companies.php', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ id: company.id })
+				})
+				.then(res => res.json())
+				.then(result => {
+					if (result.success) {
+						card.remove();
+					} else {
+						this.disabled = false;
+						alert('Failed to confirm company.');
+					}
+				})
+				.catch(() => {
+					this.disabled = false;
+					alert('Server error.');
+				});
+			});
+			card.querySelector('.btn-cancel').addEventListener('click', function() {
+				this.disabled = true;
+				fetch('http://localhost/WEB_FINAL_CODES/backend/get_pending_companies.php', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ id: company.id, delete: true })
+				})
+				.then(res => res.json())
+				.then(result => {
+					if (result.success) {
+						card.remove();
+					} else {
+						this.disabled = false;
+						alert('Failed to delete company.');
+					}
+				})
+				.catch(() => {
+					this.disabled = false;
+					alert('Server error.');
+				});
+			});
+			list.appendChild(card);
+		});
+	}
+	function fetchAndRenderPendingCompanies() {
+		const list = document.getElementById('company-cards-list');
+		if (!list) return;
+		list.innerHTML = '<div style="color:#888;">Loading...</div>';
+		fetch('http://localhost/WEB_FINAL_CODES/backend/get_pending_companies.php')
+			.then(res => res.json())
+			.then(data => {
+				list.innerHTML = '';
+				if (data.success && Array.isArray(data.companies) && data.companies.length > 0) {
+					allCompanies = data.companies;
+					renderCompanyCards(allCompanies);
+				} else {
+					list.innerHTML = '<div style="color:#888;">No pending company requests.</div>';
+				}
+			})
+			.catch(() => {
+				list.innerHTML = '<div style="color:#b91c1c;">Failed to load companies.</div>';
+			});
+	}
+	function fetchAndRenderCategories() {
+		const filter = document.getElementById('company-category-filter');
+		if (!filter) return;
+		fetch('http://localhost/WEB_FINAL_CODES/backend/get_pending_companies.php?categories=1')
+			.then(res => res.json())
+			.then(data => {
+				if (data.success && Array.isArray(data.categories)) {
+					filter.innerHTML = '<option value="All">All</option>';
+					data.categories.forEach(cat => {
+						if (cat && cat.trim()) {
+							filter.innerHTML += `<option value="${cat}">${cat}</option>`;
+						}
+					});
+				}
+			});
+	}
+	document.addEventListener('DOMContentLoaded', function() {
+		fetchAndRenderPendingCompanies();
+		fetchAndRenderCategories();
+		document.getElementById('company-category-filter').addEventListener('change', function() {
+			const selected = this.value;
+			if (selected === 'All') {
+				renderCompanyCards(allCompanies);
+			} else {
+				renderCompanyCards(allCompanies.filter(c => c.bussiness_type === selected));
+			}
+		});
+	});
+	</script>
+    <script src="../js/student.js"></script>
+	<!-- Settings Modal -->
+	<div id="settingsModalOverlay" class="settings-modal-overlay" style="display:none;">
+		<div class="settings-modal">
+			<button class="settings-modal-close" id="settingsModalClose" title="Close">&times;</button>
+			<h2>Settings</h2>
+			<form>
+				<div class="settings-toggle-group">
+					<label class="toggle-label">
+						<input type="checkbox" id="setting-darkmode" hidden>
+						<span class="switch-mode"></span>
+						<span>Enable Dark Mode</span>
+					</label>
+					<label class="toggle-label">
+						<input type="checkbox" id="setting-notifications" hidden>
+						<span class="switch-mode"></span>
+						<span>Enable Notifications</span>
+					</label>
+					<label class="toggle-label">
+						<input type="checkbox" id="setting-email" hidden>
+						<span class="switch-mode"></span>
+						<span>Email Updates</span>
+					</label>
+				</div>
+				<div class="modal-actions">
+					<button type="button" id="settingsSaveBtn">Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- Notification Modal -->
+	<div id="notificationModalOverlay" class="settings-modal-overlay" style="display:none;">
+    <div class="settings-modal notification-modal">
+        <div class="notification-header" style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-right: 10px;">
+            <h2 style="color: var(--primary); margin: 0;">Notifications</h2>
+            <div class="notification-actions" style="display: flex; align-items: center; gap: 32px;">
+                <button id="markAllReadBtn" class="btn btn-secondary" style="font-size: 0.9em; padding: 8px 16px;">Mark All Read</button>
+                <button class="settings-modal-close" id="notificationModalClose" title="Close" style="font-size: 1.5em; background: none; border: none; color: var(--primary); cursor: pointer; margin-left: 12px;">&times;</button>
+            </div>
+        </div>
+        <div class="notification-list-container" style="max-height: 350px; overflow-y: auto; margin-top: 18px;">
+            <div class="notification-list" id="notificationList">
+                <!-- Notifications will be loaded dynamically -->
+            </div>
+            <div class="notification-empty" id="notificationEmpty" style="display: none; text-align: center; margin-top: 40px;">
+                <i class='bx bx-bell' style="font-size: 3em; color: var(--text-muted); margin-bottom: 16px;"></i>
+                <p style="color: var(--text-secondary); margin: 0;">No notifications yet</p>
+            </div>
+        </div>
+    </div>
+</div>
+	<!-- Edit Profile Modal (modern version) -->
+	<div id="profileModalOverlay" class="settings-modal-overlay" style="display:none;">
+		<div class="settings-modal" style="max-width:650px;width:100%;padding:32px 48px 28px 48px;">
+			<button class="settings-modal-close" id="profileModalClose" title="Close">&times;</button>
+			<h2 style="color: var(--primary);margin-bottom:24px;text-align:center;">Edit Profile</h2>
+			<form id="editProfileForm" autocomplete="off">
+				<div style="display:flex;flex-direction:column;align-items:center;gap:18px;margin-bottom:24px;">
+					<div style="position:relative;">
+						<img id="avatarPreview" src="" alt="Profile" class="profile-img" style="width:96px;height:96px;">
+						<label for="avatarUpload" class="avatar-upload-btn" style="position:absolute;bottom:0;right:0;background:var(--primary);color:#fff;border-radius:50%;padding:7px;cursor:pointer;box-shadow:0 2px 8px rgba(99,102,241,0.18);border:2px solid #fff;">
+							<i class='bx bx-camera'></i>
+						</label>
+						<input type="file" id="avatarUpload" accept="image/*" style="display:none;">
+					</div>
+				</div>
+				<div class="form-group" style="margin-bottom: 18px; display: flex; flex-direction: row; align-items: center; gap: 0; justify-content: center; width:100%;">
+					<label for="name" class="form-label" style="width: 160px; min-width: 120px; text-align:left; font-weight:500;">Name</label>
+					<input type="text" id="name" name="name" class="form-input" value="" required style="flex:1; min-width:0; max-width:320px;">
+				</div>
+				<div class="form-group" style="margin-bottom: 18px; display: flex; flex-direction: row; align-items: center; gap: 0; justify-content: center; width:100%;">
+					<label for="email" class="form-label" style="width: 160px; min-width: 120px; text-align:left; font-weight:500;">Email</label>
+					<input type="email" id="email" name="email" class="form-input" value="" required style="flex:1; min-width:0; max-width:320px;">
+				</div>
+				<fieldset class="form-group" style="border:none;margin:0 0 18px 0;padding:0;">
+					<legend style="font-weight:500;color:var(--primary);margin-bottom:8px;text-align:left;">Change Password</legend>
+					<div style="display: flex; align-items: center; gap: 24px; justify-content: space-between; margin-bottom: 10px;">
+						<label for="password" class="form-label" style="flex:1; text-align:left; font-weight:500;">New Password</label>
+						<input type="password" id="password" name="password" class="form-input" style="flex:2; min-width:0;">
+					</div>
+					<div style="display: flex; align-items: center; gap: 24px; justify-content: space-between;">
+						<label for="confirmPassword" class="form-label" style="flex:1; text-align:left; font-weight:500;">Confirm Password</label>
+						<input type="password" id="confirmPassword" name="confirmPassword" class="form-input" style="flex:2; min-width:0;">
+					</div>
+				</fieldset>
+				<div class="modal-actions" style="display:flex;gap:12px;justify-content:flex-end;">
+					<button type="button" id="editProfileCancelBtn" class="btn btn-secondary">Cancel</button>
+					<button type="submit" class="btn">Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script>
+	document.addEventListener('DOMContentLoaded', function() {
+    // Settings Modal Logic for CGU Dashboard
+    const settingsModalOverlay = document.getElementById('settingsModalOverlay');
+    const settingsModalClose = document.getElementById('settingsModalClose');
+    const settingsSaveBtn = document.getElementById('settingsSaveBtn');
+    const settingsSidebarLink = Array.from(document.querySelectorAll('.side-menu a')).find(a => a.textContent.trim() === 'Settings');
+    const settingDarkMode = document.getElementById('setting-darkmode');
+    const settingNotifications = document.getElementById('setting-notifications');
+    const settingEmail = document.getElementById('setting-email');
+    const switchMode = document.getElementById('switch-mode');
+
+    function setDarkMode(enabled) {
+        if (enabled) {
+            document.body.classList.add('dark');
+            if (switchMode) switchMode.checked = true;
+            if (settingDarkMode) settingDarkMode.checked = true;
+            localStorage.setItem('darkMode', 'dark');
+        } else {
+            document.body.classList.remove('dark');
+            if (switchMode) switchMode.checked = false;
+            if (settingDarkMode) settingDarkMode.checked = false;
+            localStorage.setItem('darkMode', 'light');
+        }
+    }
+
+    // On page load, apply dark mode if set
+    (function() {
+        const mode = localStorage.getItem('darkMode');
+        if (mode === 'dark') {
+            document.body.classList.add('dark');
+            if (switchMode) switchMode.checked = true;
+            if (settingDarkMode) settingDarkMode.checked = true;
+        } else {
+            document.body.classList.remove('dark');
+            if (switchMode) switchMode.checked = false;
+            if (settingDarkMode) settingDarkMode.checked = false;
+        }
+    })();
+
+    if (switchMode) {
+        switchMode.addEventListener('change', function () {
+            setDarkMode(this.checked);
+        });
+    }
+    if (settingDarkMode) {
+        settingDarkMode.addEventListener('change', function () {
+            setDarkMode(this.checked);
+        });
+    }
+
+    if (settingsSidebarLink) {
+        settingsSidebarLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            settingsModalOverlay.style.display = 'flex';
+        });
+    }
+    if (settingsModalClose) {
+        settingsModalClose.addEventListener('click', () => settingsModalOverlay.style.display = 'none');
+    }
+    if (settingsModalOverlay) {
+        settingsModalOverlay.addEventListener('click', e => {
+            if (e.target === settingsModalOverlay) settingsModalOverlay.style.display = 'none';
+        });
+    }
+    if (settingsSaveBtn) {
+        settingsSaveBtn.addEventListener('click', () => {
+            // Save settings to localStorage
+            localStorage.setItem('darkMode', settingDarkMode.checked ? 'dark' : 'light');
+            localStorage.setItem('notificationsEnabled', settingNotifications.checked ? 'true' : 'false');
+            localStorage.setItem('emailUpdatesEnabled', settingEmail.checked ? 'true' : 'false');
+            setDarkMode(settingDarkMode.checked);
+            settingsModalOverlay.style.display = 'none';
+        });
+    }
+    // Load settings from localStorage or defaults
+    function loadSettings() {
+        const darkMode = localStorage.getItem('darkMode') === 'dark';
+        const notifications = localStorage.getItem('notificationsEnabled') !== 'false';
+        const emailUpdates = localStorage.getItem('emailUpdatesEnabled') === 'true';
+        settingDarkMode.checked = darkMode;
+        settingNotifications.checked = notifications;
+        settingEmail.checked = emailUpdates;
+    }
+    loadSettings();
+});
+	
+	</script>
+	<script>
+	document.addEventListener('DOMContentLoaded', function() {
+    // Notification Modal Logic for CGU Dashboard
+    const notificationModalOverlay = document.getElementById('notificationModalOverlay');
+    const notificationModalClose = document.getElementById('notificationModalClose');
+    const notificationIcon = document.querySelector('.notification');
+    const markAllReadBtn = document.getElementById('markAllReadBtn');
+    const notificationList = document.getElementById('notificationList');
+    const notificationEmpty = document.getElementById('notificationEmpty');
+
+    // Dummy notifications for demonstration (replace with fetch logic)
+    // let notifications = [{title: "Test", message: "This is a test", created_at: "2024-07-01", is_read: false}];
+
+    function renderNotifications() {
+        // Replace with your fetch logic if needed
+        let notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+        notificationList.innerHTML = '';
+        if (notifications.length === 0) {
+            notificationList.style.display = 'none';
+            notificationEmpty.style.display = 'block';
+        } else {
+            notificationList.style.display = 'block';
+            notificationEmpty.style.display = 'none';
+            notifications.forEach(n => {
+                const item = document.createElement('div');
+                item.className = 'notification-item' + (n.is_read ? '' : ' unread');
+                item.innerHTML = `
+                    <div class="notification-title">${n.title}</div>
+                    <div class="notification-message">${n.message}</div>
+                    <div class="notification-time">${n.created_at}</div>
+                `;
+                notificationList.appendChild(item);
+            });
+        }
+    }
+
+    if (notificationIcon) {
+        notificationIcon.addEventListener('click', function(e) {
+            e.preventDefault();
+            notificationModalOverlay.style.display = 'flex';
+            renderNotifications();
+        });
+    }
+    if (notificationModalClose) {
+        notificationModalClose.addEventListener('click', () => {
+            notificationModalOverlay.style.display = 'none';
+        });
+    }
+    if (notificationModalOverlay) {
+        notificationModalOverlay.addEventListener('click', e => {
+            if (e.target === notificationModalOverlay) notificationModalOverlay.style.display = 'none';
+        });
+    }
+    if (markAllReadBtn) {
+        markAllReadBtn.addEventListener('click', function() {
+            let notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+            notifications.forEach(n => n.is_read = true);
+            localStorage.setItem('notifications', JSON.stringify(notifications));
+            renderNotifications();
+        });
+    }
+});
+</script>
+	<script>
+    // Fetch and render pending companies
+    function renderCompanyCard(company) {
+        const card = document.createElement('div');
+        card.className = 'company-card';
+        card.style.display = 'flex';
+        card.style.flexDirection = 'column';
+        card.style.alignItems = 'flex-start';
+        card.style.padding = '24px 24px 32px 24px';
+        card.style.background = 'linear-gradient(135deg, #f8fafc 80%, #e0e7ff 100%)';
+        card.style.borderRadius = '18px';
+        card.style.border = '1.5px solid #a5b4fc';
+        card.style.marginBottom = '28px';
+        card.style.width = '100%';
+        card.style.maxWidth = '420px';
+        card.style.boxShadow = '0 4px 24px rgba(99,102,241,0.10)';
+        card.style.transition = 'box-shadow 0.2s, transform 0.2s';
+        card.onmouseenter = () => {
+            card.style.boxShadow = '0 8px 32px rgba(99,102,241,0.18)';
+            card.style.transform = 'translateY(-4px) scale(1.02)';
+        };
+        card.onmouseleave = () => {
+            card.style.boxShadow = '0 4px 24px rgba(99,102,241,0.10)';
+            card.style.transform = 'none';
+        };
+
+        card.innerHTML = `
+            <div style="display:flex;align-items:center;gap:18px;margin-bottom:16px;">
+                <img src="${company.image || 'https://via.placeholder.com/56x56/6366f1/ffffff?text=' + (company.com_name ? company.com_name.charAt(0) : 'C')}" alt="${company.com_name}" class="company-logo" style="width:56px;height:56px;border-radius:14px;object-fit:cover;box-shadow:0 2px 8px #a5b4fc44;">
+                <div>
+                    <h3 style="margin:0 0 2px 0;font-size:1.35em;font-weight:700;color:#6366f1;">${company.com_name}</h3>
+                    <p style="margin:0;color:#64748b;font-size:1em;">${company.bussiness_type}, ${company.address}</p>
+                </div>
+            </div>
+            <div style="margin-bottom:8px;"><strong>Reg No:</strong> ${company.reg_no}</div>
+            <div style="margin-bottom:8px;"><strong>Email:</strong> <a href="mailto:${company.email}" style="color:#6366f1;text-decoration:underline;">${company.email}</a></div>
+            <div style="margin-bottom:8px;"><strong>Contact:</strong> ${company.contact_no}</div>
+            <div style="margin-bottom:8px;"><strong>No. of Employees:</strong> ${company.no_of_employees}</div>
+            <div style="margin-bottom:8px;"><strong>Bio:</strong> <span style="color:#334155;">${company.bio}</span></div>
+            <div style="margin-bottom:8px;"><strong>URL:</strong> <a href="${company.url}" target="_blank" style="color:#6366f1;text-decoration:underline;">${company.url}</a></div>
+        `;
+
+        // Button container
+        const btnContainer = document.createElement('div');
+        btnContainer.style.marginTop = 'auto';
+        btnContainer.style.display = 'flex';
+        btnContainer.style.gap = '16px';
+        btnContainer.style.justifyContent = 'center';
+        btnContainer.style.width = '100%';
+
+        btnContainer.innerHTML = `
+            <button class='btn-confirm' data-id='${company.id}' style='padding:10px 28px;background:#22c55e;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;box-shadow:0 2px 8px #22c55e33;transition:background 0.2s,box-shadow 0.2s;'>Confirm</button>
+            <button class='btn-cancel' data-id='${company.id}' style='padding:10px 28px;background:#ef4444;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;box-shadow:0 2px 8px #ef444433;transition:background 0.2s,box-shadow 0.2s;'>Delete</button>
+        `;
+
+        // Button hover effects
+        btnContainer.querySelector('.btn-confirm').onmouseenter = function() {
+            this.style.background = '#16a34a';
+            this.style.boxShadow = '0 4px 16px #22c55e55';
+        };
+        btnContainer.querySelector('.btn-confirm').onmouseleave = function() {
+            this.style.background = '#22c55e';
+            this.style.boxShadow = '0 2px 8px #22c55e33';
+        };
+        btnContainer.querySelector('.btn-cancel').onmouseenter = function() {
+            this.style.background = '#b91c1c';
+            this.style.boxShadow = '0 4px 16px #ef444455';
+        };
+        btnContainer.querySelector('.btn-cancel').onmouseleave = function() {
+            this.style.background = '#ef4444';
+            this.style.boxShadow = '0 2px 8px #ef444433';
+        };
+
+        card.appendChild(btnContainer);
+        return card;
+    }
+
+    function fetchAndRenderPendingCompanies() {
+        const list = document.getElementById('company-cards-list');
+        if (!list) return;
+        list.innerHTML = '<div style="color:#888;">Loading...</div>';
+        fetch('http://localhost/WEB_FINAL_CODES/backend/get_pending_companies.php')
+            .then(res => res.json())
+            .then(data => {
+                list.innerHTML = '';
+                if (data.success && Array.isArray(data.companies) && data.companies.length > 0) {
+                    allCompanies = data.companies;
+                    renderCompanyCards(allCompanies);
+                } else {
+                    list.innerHTML = '<div style="color:#888;">No pending company requests.</div>';
+                }
+            })
+            .catch(() => {
+                list.innerHTML = '<div style="color:#b91c1c;">Failed to load companies.</div>';
+            });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        fetchAndRenderPendingCompanies();
+    });
+</script>
+</body>

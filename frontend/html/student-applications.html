@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Applications - Grag Gig</title>
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+	<link rel="stylesheet" href="../css/student.css">
+	<script>if (!localStorage.getItem("isLoggedIn")) {
+    window.location.href = "login.html";
+  }</script>
+	<style>
+		.head-title .breadcrumb {
+			list-style: none;
+			padding-left: 0;
+			margin: 0;
+		}
+	</style>
+</head>
+<body>
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<div id="navlogo" style="max-width: 1200px; margin: 0 auto; padding: 1.5rem; height: 70px; display: flex; align-items: center; gap: 0.5rem; font-size: 1.5rem; font-weight: 800; color:#9333ea; text-decoration: none; margin-right: 600px;">
+  <i class="fas fa-briefcase"></i>
+  Grag<span style="color: #f59e0b;">Gig</span>
+</div>
+		<ul class="side-menu top">
+			<li>
+				<a href="student-dashboard.html">
+					<i class='bx bxs-dashboard'></i>
+					<span class="text">Dashboard</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="student-applications.html">
+					<i class='bx bxs-folder'></i>
+					<span class="text">Applications</span>
+				</a>
+			</li>
+			<li>
+				<a href="jobs.html">
+					<i class='bx bx-briefcase'></i>
+					<span class="text">Browse Jobs</span>
+				</a>
+			</li>
+			<li>
+				<a href="company.html">
+					<i class='bx bxs-group'></i>
+					<span class="text">Companies</span>
+				</a>
+			</li>
+			
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="edit-profile.html">
+					<i class='bx bxs-cog'></i>
+					<span class="text">Settings</span>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="logout">
+					<i class='bx bxs-log-out-circle'></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+		<!-- Profile Section (copy from index3.html) -->
+		<div class="profile-section">
+			<div class="profile-content">
+				<img src="" alt="Profile" class="profile-img">
+				<div class="profile-info">
+					<h4></h4>
+					<p>Student</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu'></i>
+			<a href="#" class="nav-link">Categories</a>
+			<div class="nav-right-group">
+				<form class="search-box">
+					<input type="text" placeholder=" " />
+					<button type="reset"></button>
+				</form>
+			</div>
+			<div class="absolute-header-controls">
+				<input type="checkbox" id="switch-mode" hidden>
+				<label for="switch-mode" class="switch-mode"></label>
+				<a href="#" class="notification">
+					<i class='bx bxs-bell'></i>
+					<span class="num">3</span>
+				</a>
+			</div>
+		</nav>
+
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Applications</h1>
+					<ul class="breadcrumb">
+						<li><a href="student-dashboard.html">Dashboard</a></li>
+						<li><i class='bx bx-chevron-right'></i></li>
+						<li><a class="active" href="#">Applications</a></li>
+					</ul>
+				</div>
+				<a href="#" class="btn-download">
+					<i class='bx bxs-cloud-upload'></i>
+					<span class="text">Upload Your CV</span>
+				</a>
+			</div>
+
+			<!-- Applications Table -->
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>Previous Applications</h3>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>Company</th>
+								<th>Job Title</th>
+								<th>Date</th>
+							</tr>
+						</thead>
+						<tbody id="applicationsTableBody">
+							<!-- Application rows will be rendered by JS -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</main>
+	</section>
+	<script src="../js/student.js"></script>
+	<!-- Settings Modal -->
+	<div id="settingsModalOverlay" class="settings-modal-overlay" style="display:none;">
+		<div class="settings-modal">
+			<button class="settings-modal-close" id="settingsModalClose" title="Close">&times;</button>
+			<h2>Settings</h2>
+			<form>
+				<div class="settings-toggle-group">
+					<label class="toggle-label">
+						<input type="checkbox" id="setting-darkmode" hidden>
+						<span class="switch-mode"></span>
+						<span>Enable Dark Mode</span>
+					</label>
+					<label class="toggle-label">
+						<input type="checkbox" id="setting-notifications" hidden>
+						<span class="switch-mode"></span>
+						<span>Enable Notifications</span>
+					</label>
+					<label class="toggle-label">
+						<input type="checkbox" id="setting-email" hidden>
+						<span class="switch-mode"></span>
+						<span>Email Updates</span>
+					</label>
+				</div>
+				<div class="modal-actions">
+					<button type="button" id="settingsSaveBtn">Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script>
+	// Settings Modal Logic
+	const settingsModalOverlay = document.getElementById('settingsModalOverlay');
+	const settingsModalClose = document.getElementById('settingsModalClose');
+	const settingsSaveBtn = document.getElementById('settingsSaveBtn');
+	const settingsSidebarLink = Array.from(document.querySelectorAll('.side-menu a')).find(a => a.textContent.trim() === 'Settings');
+	if (settingsSidebarLink) {
+		settingsSidebarLink.addEventListener('click', function(e) {
+			e.preventDefault();
+			settingsModalOverlay.style.display = 'flex';
+		});
+	}
+	settingsModalClose.addEventListener('click', () => settingsModalOverlay.style.display = 'none');
+	settingsModalOverlay.addEventListener('click', e => {
+		if (e.target === settingsModalOverlay) settingsModalOverlay.style.display = 'none';
+	});
+	settingsSaveBtn.addEventListener('click', () => {
+		settingsModalOverlay.style.display = 'none';
+		// Add save logic here if needed
+	});
+	</script>
+	<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		fetchAndRenderStudentName();
+	});
+	</script>
+</body>
+</html> 
